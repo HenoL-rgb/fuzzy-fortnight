@@ -97,11 +97,12 @@ export default function MainScreen() {
             return (
               <Triangle
                 key={`${triangle[1].x}${triangle[2].x}`}
-                x={triangle[1]}
-                y={triangle[2]}
+                x={triangles[0][1]}
+                y={triangles[0][2]}
                 color={colors[index]}
-                center={triangle[0]}
+                center={triangles[0][0]}
                 width={width}
+                index={index}
               />
             );
           })}
