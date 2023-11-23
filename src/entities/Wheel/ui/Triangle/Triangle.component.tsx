@@ -1,64 +1,16 @@
+import { degreesToRadians } from '../../model/helpers/triangleHelpers/degreesToRadians';
+import { getPathes } from '../../model/helpers/triangleHelpers/getPathes';
 import {
   Group,
-  Line,
   LinearGradient,
   Mask,
   Path,
-  SkPath,
   SkPoint,
-  Skia,
   TextPath,
   useFont,
   vec,
 } from '@shopify/react-native-skia';
-
-interface TriangleProps {
-  x: SkPoint;
-  y: SkPoint;
-  center: SkPoint;
-  width: number;
-  color: {
-    linearMain: {
-      first: string;
-      second: string;
-    };
-  };
-  index: number;
-  numberOfTriangles: number;
-  amount: number;
-}
-
-const getPathes = (x: SkPoint, y: SkPoint, center: SkPoint): [SkPath, SkPath, SkPoint, SkPath] => {
-  const path = Skia.Path.Make();
-  path.moveTo(x.x, x.y);
-  path.lineTo(center.x, center.y);
-  path.lineTo(y.x, y.y);
-  path.lineTo(x.x, x.y);
-  path.close();
-
-  const upperCenterX = (y.x + x.x) / 2;
-  const upperCenterY = (x.y + y.y) / 2;
-
-  const textPath = Skia.Path.Make();
-
-  textPath.moveTo(center.x, center.y);
-  textPath.lineTo(upperCenterX, upperCenterY);
-  textPath.close();
-
-  const bigShadowPath = Skia.Path.Make();
-  bigShadowPath.moveTo(x.x, x.y);
-  bigShadowPath.lineTo(center.x, center.y);
-  bigShadowPath.lineTo(y.x, y.y);
-  bigShadowPath.lineTo(center.x, center.y);
-  bigShadowPath.close();
-
-  return [path, textPath, vec(upperCenterX, upperCenterY), bigShadowPath];
-};
-
-function degreesToRadians(degrees: number) {
-  var pi = Math.PI;
-  return degrees * (pi / 180);
-}
+import { TriangleProps } from './Triangle.types';
 
 export default function Triangle({
   x,
@@ -72,18 +24,9 @@ export default function Triangle({
 }: TriangleProps) {
   const font = useFont(require('src/shared/assets/fonts/Roboto-Black.ttf'), 40);
 
-  const [path, textPath, gradEnd, bigShadowPath] = getPathes(x, y, center);
+  const [path, textPath, gradEnd] = getPathes(x, y, center);
   if (!font) return null;
 
-  const bigShadowCenterAnchorX =
-    gradEnd.x / 2 +
-    (50 * (gradEnd.x / 2 - center.x)) /
-      Math.sqrt(Math.pow(gradEnd.x / 2 - center.x, 2) + Math.pow(gradEnd.y / 2 - center.y, 2));
-
-  const bigShadowCenterAnchorY =
-    gradEnd.y / 2 +
-    (50 * (gradEnd.y / 2 - center.y)) /
-      Math.sqrt(Math.pow(gradEnd.x / 2 - center.x, 2) + Math.pow(gradEnd.y / 2 - center.y, 2));
   return (
     <Group
       antiAlias
