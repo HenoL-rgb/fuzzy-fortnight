@@ -28,7 +28,7 @@ export default function Modal({
         <AnimatedBackdrop
           entering={FadeIn.duration(300)}
           exiting={FadeOut.duration(300)}
-          style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(0,0,0,0.4)' }]}
+          style={[StyleSheet.absoluteFill, { backgroundColor: 'rgba(0,0,0,0.4)' }]}
         >
           <NativeModal
             animationType="slide"
@@ -39,7 +39,10 @@ export default function Modal({
             }}
             pointerEvents="box-none"
           >
-            <Pressable style={styles.centeredView} onPress={() => setModalVisible(!modalVisible)}>
+            <Pressable
+              style={styles.centeredView}
+              onPress={(e) => e.target === e.currentTarget && setModalVisible(!modalVisible)}
+            >
               {children}
             </Pressable>
           </NativeModal>
