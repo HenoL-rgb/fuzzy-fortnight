@@ -9,5 +9,7 @@ export default function MainApp() {
     'Roboto-Bold': require('src/shared/assets/fonts/Roboto-Bold.ttf')
   });
 
+  if(!fontsLoaded) return null;
+
   return <MainRouter />;
 }

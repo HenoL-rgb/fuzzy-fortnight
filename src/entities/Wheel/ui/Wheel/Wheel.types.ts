@@ -6,3 +6,7 @@ export interface WheelProps {
   style?: ViewStyle;
   setWinner: (amount: number) => void;
 }
+
+export interface WheelRefProps {
+  spin: () => void;
+}

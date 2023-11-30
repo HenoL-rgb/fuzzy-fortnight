@@ -1,21 +1,20 @@
-import { View, Text, Image, Pressable, Dimensions, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation, useTheme } from '@react-navigation/native';
+import { View, Pressable } from 'react-native';
+import React, {
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+import { useTheme } from '@react-navigation/native';
 import Animated, {
   Easing,
-  interpolate,
   runOnJS,
-  runOnUI,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withDelay,
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
 import { Canvas, Circle, Group, LinearGradient, vec } from '@shopify/react-native-skia';
-import { WheelProps } from './Wheel.types';
+import { WheelProps, WheelRefProps } from './Wheel.types';
 import { calculateReturnValue } from '../../model/helpers/wheelHelpers/calculateReturnValue';
 import { generateIndices } from '../../model/helpers/wheelHelpers/generateIndices';
 import { data } from '../../model/data/wheelMock';
@@ -23,12 +22,11 @@ import Triangle from '../Triangle/Triangle.component';
 import { colors } from '../../model/data/colors';
 import { getRandomAngleWithDate } from '../../model/helpers/wheelHelpers/getRandomAngleWithDate';
 import { createStyles } from './Wheel.styles';
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient';
 import { Vector } from '@shared/assets/icons';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export default function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps) {
+function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, ref: WheelRefProps) {
   const isWheeling = useSharedValue(false);
   const triangleSize = 360 / numberOfTriangles;
   const [vertices, triangles] = generateIndices(width, numberOfTriangles, triangleSize);
@@ -87,6 +85,14 @@ export default function Wheel({ width, numberOfTriangles = 8, style, setWinner }
       )
     );
   };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      spin: onPress,
+    }),
+    []
+  );
 
   if (!vertices || !triangles) {
     return null;
@@ -157,3 +163,5 @@ export default function Wheel({ width, numberOfTriangles = 8, style, setWinner }
     </View>
   );
 }
+
+export default forwardRef(Wheel);

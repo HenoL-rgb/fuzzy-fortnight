@@ -1,12 +1,16 @@
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Pressable } from 'react-native';
 import React, { useCallback, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useTheme } from '@react-navigation/native';
-import Wheel from '@entities/Wheel/ui/Wheel/Wheel.component';
-import { Modal } from '@shared/ui/Modal';
-import WinModal from '@entities/Wheel/ui/WinModal/WinModal.component';
+import { Wheel } from '@entities/Wheel';
+import { WinModal } from '@entities/Wheel';
 import LottieView from 'lottie-react-native';
 import confetti from '@shared/assets/animations/confetti.json';
+import { MainHeader } from '@widgets/MainHeader';
+import { createStyles } from './Main.styles';
+import { Button } from '@shared/ui/Button';
+import { LinearGradient } from 'expo-linear-gradient';
+import { WheelRefProps } from '@entities/Wheel';
 
 const { width: screenWidth } = Dimensions.get('screen');
 const width = screenWidth * 1.5;
@@ -18,6 +22,8 @@ export default function MainScreen() {
   const [win, setWin] = useState<number | null>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const confettiRef = useRef<LottieView>(null);
+  const wheelRef = useRef<WheelRefProps>(null);
+  const styles = createStyles(theme);
 
   const onWin = (win: number) => {
     setWin(win);
@@ -36,13 +42,26 @@ export default function MainScreen() {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center' }}>
-      {win && (
-        <View style={{ position: 'absolute', top: 100 }}>
-          <Text style={{ color: '#fff' }}>Win amount: {win}</Text>
-        </View>
-      )}
+    <View style={{ flex: 1, alignItems: 'center', paddingTop: top }}>
+      <MainHeader />
+
+      <View style={styles.text}>
+        <Text style={styles.title}>Spin the Wheel</Text>
+        <Text style={styles.subTitle}> 5 more spins ready in 23:09:07</Text>
+      </View>
+      <View>
+        <LinearGradient colors={['#21CC51', '#166E55']} style={styles.spinButtonWrapper}>
+          <Button
+            title="Spin"
+            style={styles.spinButton}
+            textStyle={styles.spinBtnText}
+            onPress={() => wheelRef.current?.spin()}
+          />
+        </LinearGradient>
+      </View>
+
       <Wheel
+        ref={wheelRef}
         width={width}
         style={{
           position: 'absolute',
@@ -50,25 +69,12 @@ export default function MainScreen() {
         }}
         setWinner={onWin}
       />
-      {/* <Modal
-        isVisible={modalVisible}
-        hasBackdrop
-        onDismiss={() => setModalVisible(false)}
-        onBackdropPress={() => setModalVisible(false)}
-        style={{
-          alignItems: 'center'
-        }}
-        animationInTiming={300}
-        animationOutTiming={300}
-      >
-        <View style={{ height: 300, width: 300, backgroundColor: 'white' }}></View>
-      </Modal> */}
       <LottieView
         ref={confettiRef}
         source={confetti}
         style={{
           position: 'absolute',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
         }}
         loop={!!win}
         autoSize

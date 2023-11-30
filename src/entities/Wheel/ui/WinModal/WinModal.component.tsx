@@ -1,11 +1,10 @@
 import { View, Text } from 'react-native';
-import React, { useCallback } from 'react';
 import { WinModalProps } from './WinModal.types';
 import { Modal } from '@shared/ui/Modal';
 import { useTheme } from '@react-navigation/native';
 import { createStyles } from './WinModal.styles';
 import { Chest, WinSvg } from '@shared/assets/icons';
-import { Button } from '@shared/ui/Button copy';
+import { Button } from '@shared/ui/Button';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function WinModal({ modalVisible, setModalVisible, win }: WinModalProps) {
