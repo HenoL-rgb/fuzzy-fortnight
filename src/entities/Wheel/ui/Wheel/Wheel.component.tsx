@@ -26,7 +26,7 @@ import { Vector } from '@shared/assets/icons';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, ref: WheelRefProps) {
+function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, ref: React.Ref<WheelRefProps>) {
   const isWheeling = useSharedValue(false);
   const triangleSize = 360 / numberOfTriangles;
   const [vertices, triangles] = generateIndices(width, numberOfTriangles, triangleSize);
@@ -50,6 +50,11 @@ function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, r
     animation.value = 0;
     const toRotate = 3000 + getRandomAngleWithDate();
     const toReturn = calculateReturnValue(toRotate);
+    const finalPosition = (toRotate + triangleSize / 2) % 360;
+
+    const sectionSize = 360 / 8;
+    const winnerSection = Math.floor(finalPosition / sectionSize);
+    const winner = data[winnerSection].amount
 
     animation.value = withSequence(
       withTiming(100, {
@@ -63,11 +68,7 @@ function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, r
           easing: Easing.out(Easing.cubic),
         },
         () => {
-          const finalPosition = (toRotate + triangleSize / 2) % 360;
-
-          const sectionSize = 360 / 8;
-          const winnerSection = Math.floor(finalPosition / sectionSize);
-          runOnJS(setWinner)(data[winnerSection].amount);
+          runOnJS(setWinner)(winner);
         }
       ),
       withDelay(
@@ -164,4 +165,4 @@ function Wheel({ width, numberOfTriangles = 8, style, setWinner }: WheelProps, r
   );
 }
 
-export default forwardRef(Wheel);
+export default forwardRef<WheelRefProps, WheelProps>(Wheel);
