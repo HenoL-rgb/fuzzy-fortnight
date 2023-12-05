@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 export const createStyles = (theme: Theme, index?: number) =>
   StyleSheet.create({
     card: {
+      position: 'absolute',
       width: 120,
       height: 168,
       right: index === 0 || !index ? 0 : 70 * index,
@@ -12,5 +13,10 @@ export const createStyles = (theme: Theme, index?: number) =>
       elevation: 10,
       backgroundColor: 'white',
       borderRadius: 5,
+      alignSelf: 'flex-end',
+      marginRight: 30,
+    },
+    flyingCard: {
+      position: "absolute",
     },
   });

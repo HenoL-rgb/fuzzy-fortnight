@@ -3,14 +3,17 @@ import { RouterProvider } from '@app/providers/router';
 import { StoreProvider } from '@app/providers/storeProvider';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-    <RouterProvider>
-      <StoreProvider>
-        <MainApp />
-      </StoreProvider>
-    </RouterProvider>
+    <SafeAreaProvider>
+      <RouterProvider>
+        <StoreProvider>
+          <MainApp />
+        </StoreProvider>
+      </RouterProvider>
+    </SafeAreaProvider>
   );
 }
 

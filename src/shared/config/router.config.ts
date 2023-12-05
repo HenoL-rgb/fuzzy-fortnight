@@ -1,6 +1,7 @@
 export enum AppRoutes {
   MAIN = 'main',
-  BLACK_JACK = 'black_jack'
+  BLACK_JACK = 'blackJack',
+  WHEEL_OF_FORTUNE = 'wheelOfFortune'
 }
 
 export type Route = {
@@ -11,4 +12,5 @@ export type Route = {
 export type AppRouterParams = {
   [AppRoutes.MAIN]: undefined;
   [AppRoutes.BLACK_JACK]: undefined;
+  [AppRoutes.WHEEL_OF_FORTUNE]: undefined;
 };

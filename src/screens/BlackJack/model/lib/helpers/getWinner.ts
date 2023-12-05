@@ -1,4 +1,4 @@
-import { Card } from '@entities/Card';
+import { Card } from '@entities/PlayingCard';
 import { calculateCards } from './calculateCards';
 
 type Player = {

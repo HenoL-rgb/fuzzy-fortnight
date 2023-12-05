@@ -1,4 +1,4 @@
-import { Card } from '@entities/Card';
+import { Card } from '@entities/PlayingCard';
 
 export function generateRandomCard(cards: Card[]): Card {
     const randomIndex = Math.floor(Math.random() * cards.length);

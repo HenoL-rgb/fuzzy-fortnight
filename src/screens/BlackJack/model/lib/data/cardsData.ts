@@ -1,4 +1,4 @@
-import { suits } from "@entities/Card";
+import { suits } from "@entities/PlayingCard";
 
 export const data = [
   {

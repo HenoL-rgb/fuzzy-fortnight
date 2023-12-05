@@ -1,22 +1,23 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useTheme } from '@react-navigation/native';
-import { createStyles } from './MainHeader.styles';
+import { useNavigation, useTheme } from '@react-navigation/native';
+import { createStyles } from './GameHeader.styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function MainHeader() {
+export default function GameHeader() {
   const theme = useTheme();
   const styles = createStyles(theme);
+  const navigation = useNavigation();
 
   return (
     <View style={[styles.wrapper]}>
-      <View style={styles.button}>
+      <Pressable style={styles.button} onPress={() => navigation.goBack()}>
         <MaterialIcons name="chevron-left" size={28} color={theme.colors.text} />
-      </View>
-      <View style={styles.button}>
+      </Pressable>
+      <Pressable style={styles.button}>
         <MaterialIcons name="settings" size={26} color={theme.colors.text} />
-      </View>
+      </Pressable>
     </View>
   );
 }

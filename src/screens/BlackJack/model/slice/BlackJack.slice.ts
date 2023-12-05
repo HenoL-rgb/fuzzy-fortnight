@@ -1,4 +1,4 @@
-import { Card } from '@entities/Card';
+import { Card } from '@entities/PlayingCard';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { generateRandomCard } from '../lib/helpers/generateRandomCard';
 import { recalculateCards } from '../lib/helpers/recalculateCards';
