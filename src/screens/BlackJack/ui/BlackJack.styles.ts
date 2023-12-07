@@ -6,6 +6,6 @@ export const createStyles = (theme: Theme) =>
     action: {
       backgroundColor: theme.colors.primary,
     },
-    wrapper: { justifyContent: 'space-between', flex: 1, paddingBottom: 0 },
+    wrapper: { justifyContent: 'space-between', flex: 1, paddingBottom: 30 },
     actions: { flexDirection: 'row', justifyContent: 'space-around' },
   });

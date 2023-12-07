@@ -10,13 +10,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function WinModal({ modalVisible, setModalVisible, win, winner, isBlackJack }: WinModalProps) {
   const theme = useTheme();
   const styles = createStyles(theme);
-  const currentUser = winner.name !== 'Dealer';
-  const actualWin = !currentUser ? -1 * win : isBlackJack ? win * 1.5 : win * 2;
+  const currentUser = winner === null ? 'Draw' : winner.name !== 'Dealer';
+  const actualWin = winner === null ? 0 : !currentUser ? -1 * win : isBlackJack ? win * 1.5 : win * 2;
 
   return (
     <Modal modalVisible={modalVisible} setModalVisible={setModalVisible}>
       <View style={styles.wrapper}>
-        <Text style={styles.title}>{winner.name} IS THE WINNER</Text>
+        <Text style={styles.title}>{winner === null ? 'Draw' : `${winner.name} IS THE WINNER` }</Text>
         <Text style={[styles.win]}>
           {currentUser ? '+' : ''}
           {actualWin}$

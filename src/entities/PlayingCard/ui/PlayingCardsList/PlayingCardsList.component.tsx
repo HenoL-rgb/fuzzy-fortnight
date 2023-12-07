@@ -18,7 +18,7 @@ const calculateCardMargin = (totalCards: number) => {
   if (totalCards >= 11) {
     return 103;
   }
-  if(totalCards >= 9) {
+  if (totalCards >= 9) {
     return 100;
   }
   if (totalCards >= 7) {
@@ -61,7 +61,7 @@ export default function PlayingCardsList({ cards, isPlayer, turn }: PlayingCards
 
   useEffect(() => {
     const isReset = calculateCardMargin(cards.length) < rightMargin;
-    
+
     if (rightMargin === 40 && !isReset) {
       ref.current?.scrollToEnd();
     } else {
@@ -71,7 +71,13 @@ export default function PlayingCardsList({ cards, isPlayer, turn }: PlayingCards
   }, [cards.length]);
 
   return (
-    <AnimatedScrollView horizontal ref={ref} style={{ paddingHorizontal: 30 }} showsHorizontalScrollIndicator={false}>
+    <AnimatedScrollView
+      horizontal
+      ref={ref}
+      style={{ paddingHorizontal: 30, flexGrow: 0 }}
+      contentContainerStyle={{ flexGrow: 0 }}
+      showsHorizontalScrollIndicator={false}
+    >
       <AnimatedPressable
         style={[
           {

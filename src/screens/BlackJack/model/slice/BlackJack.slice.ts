@@ -73,7 +73,10 @@ const blackJackSlice = createSlice({
         }
         initialCards.push(card);
       }
-      if(calculateCards([initialCards[0], initialCards[1]]) === 21) {
+      if (
+        calculateCards([initialCards[0], initialCards[1]]) === 21 &&
+        calculateCards([initialCards[2], initialCards[3]]) !== 21
+      ) {
         state.isBlackJack = true;
         state.winner = state.player1;
       }
@@ -84,8 +87,8 @@ const blackJackSlice = createSlice({
     },
     pickCard(state) {
       const picked = generateRandomCard(state.availableCards);
-      if(!state.player1) return;
-      if(!state.player2) return;
+      if (!state.player1) return;
+      if (!state.player2) return;
 
       if (state.turn && state.player1.cards) {
         state.player1.cards = recalculateCards([...state.player1.cards, picked]);
@@ -97,7 +100,7 @@ const blackJackSlice = createSlice({
       state.availableCards = state.availableCards.filter(
         (item, index) => item.suit !== picked.suit
       );
-      
+
       checkOverScore(state.player1, state.player2, (player) => (state.winner = player));
     },
     getWinner(state) {

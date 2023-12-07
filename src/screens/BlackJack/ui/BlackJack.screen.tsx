@@ -16,10 +16,14 @@ import { botPick } from '../model/lib/helpers/botPick';
 import { useAppDispatch } from '@app/providers/storeProvider/lib/hooks/useAppDispatch.hook';
 import { useAppSelector } from '@app/providers/storeProvider/lib/hooks/useAppSelector.hook';
 import Deck from '@entities/PlayingCard/ui/Deck/Deck.component';
-import { useTheme } from '@react-navigation/native';
+import { useTheme, useNavigation } from '@react-navigation/native';
 import { createStyles } from './BlackJack.styles';
 import WinModal from './WinModal/WinModal.component';
 import { GameHeader } from '@widgets/GameHeader';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { AppRouterParams, AppRoutes } from '@shared/config/router.config';
+
+const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
 export default function BlackJack() {
   const player1 = useAppSelector(getBlackJackPlayer1);
@@ -32,6 +36,21 @@ export default function BlackJack() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const navigation = useNavigation();
+  const translateY = useSharedValue(0);
+
+  const navigateToMain = () => {
+    translateY.value = withTiming(-1000, { duration: 500 }, () => {
+      navigation.navigate(AppRoutes.MAIN);
+      translateY.value = withTiming(0, { duration: 500 });
+    });
+  };
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: translateY.value }],
+    };
+  });
 
   useEffect(() => {
     if (!player1?.cards && !player2?.cards) {
@@ -54,7 +73,7 @@ export default function BlackJack() {
   }, []);
 
   useEffect(() => {
-    if (winner) return;
+    if (winner && winner !== null) return;
 
     if (!turn) {
       if (botPick(player2?.cards || [])) {
@@ -66,10 +85,10 @@ export default function BlackJack() {
   }, [turn, player2?.cards?.length]);
 
   useEffect(() => {
-    if(winner) {
-      setModalVisible(true);
+    if (winner || winner === null) {
+      setTimeout(() => setModalVisible(true), 500);
     }
-  }, [winner])
+  }, [winner]);
 
   function Pick() {
     dispatch(blackJackActions.pickCard());
@@ -84,8 +103,8 @@ export default function BlackJack() {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <GameHeader />
+    <AnimatedSafeAreaView style={[styles.wrapper, animatedStyle]} edges={['top']}>
+      <GameHeader onPress={navigateToMain} />
       <View style={{ paddingVertical: 30, justifyContent: 'space-between', flex: 1 }}>
         <PlayingCardsList cards={player2?.cards || []} isPlayer={false} turn={turn} />
         <View>
@@ -99,7 +118,7 @@ export default function BlackJack() {
         <Button title="Pass" onPress={Pass} disabled={!turn || !!winner} style={styles.action} />
         <Button title="Reset" onPress={Reset} style={styles.action} />
       </View>
-      {winner && (
+      {(winner || winner === null) && (
         <WinModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -108,6 +127,6 @@ export default function BlackJack() {
           win={player1?.bet || 0}
         />
       )}
-    </SafeAreaView>
+    </AnimatedSafeAreaView>
   );
 }

@@ -2,8 +2,9 @@ import Vector from './Vector.svg';
 import WinSvg from './win.svg';
 import Chest from './chest.svg';
 import Back from './back.svg';
+import Logo from './Logo.svg'
 
-export { Vector, WinSvg, Chest, Back };
+export { Vector, WinSvg, Chest, Back, Logo };
 
 import Heart2 from './cards/2♥.svg';
 import Heart3 from './cards/3♥.svg';
