@@ -14,10 +14,11 @@ export default function SlotsList({ slots, listHeader }: SlotsListProps) {
       data={slots}
       renderItem={({ item }) => <Slot {...item} />}
       numColumns={numOfColumns}
-      columnWrapperStyle={{ justifyContent: 'space-between' }}
-      contentContainerStyle={{ rowGap: 16 }}
+      columnWrapperStyle={{ justifyContent: 'space-between', paddingHorizontal: 20 }}
+      contentContainerStyle={{ rowGap: 16, paddingBottom: 20 }}
       keyExtractor={(item) => `${item.id}`}
       ListHeaderComponent={listHeader}
+      showsVerticalScrollIndicator={false}
     />
   );
 }

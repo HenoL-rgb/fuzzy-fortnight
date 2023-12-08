@@ -108,6 +108,9 @@ const blackJackSlice = createSlice({
         state.winner = getWinner(state.player1, state.player2);
       }
     },
+    clearState(state) {
+      return {...initialState}
+    }
   },
 });
 

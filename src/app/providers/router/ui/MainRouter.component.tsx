@@ -8,7 +8,7 @@ import MainScreenRouter from './MainScreenRouter';
 import { BlackJack } from '@screens/BlackJack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { WheelOfFortune } from '@screens/WheelOfFortune';
-import { MainHeader } from '../../../../widgets/MainHeader';
+import { MainHeader } from '@widgets/MainHeader';
 
 const Drawer = createDrawerNavigator<AppRouterParams>();
 

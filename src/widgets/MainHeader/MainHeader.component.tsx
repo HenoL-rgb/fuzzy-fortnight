@@ -24,7 +24,7 @@ export default function MainHeader() {
       >
         <Logo />
       </Pressable>
-      <Pressable style={styles.button}>
+      <Pressable style={styles.button} onPress={() => navigation.navigate('profile')}>
         <Image source={Pfp} />
       </Pressable>
     </View>

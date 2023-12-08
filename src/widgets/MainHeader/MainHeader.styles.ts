@@ -16,7 +16,7 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',
-        paddingHorizontal: 30,
+        paddingHorizontal: 20,
         paddingTop: 15,
         height: 40,
         alignItems: 'center',

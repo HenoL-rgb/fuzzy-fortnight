@@ -20,10 +20,6 @@ import { useTheme, useNavigation } from '@react-navigation/native';
 import { createStyles } from './BlackJack.styles';
 import WinModal from './WinModal/WinModal.component';
 import { GameHeader } from '@widgets/GameHeader';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { AppRouterParams, AppRoutes } from '@shared/config/router.config';
-
-const AnimatedSafeAreaView = Animated.createAnimatedComponent(SafeAreaView);
 
 export default function BlackJack() {
   const player1 = useAppSelector(getBlackJackPlayer1);
@@ -37,23 +33,9 @@ export default function BlackJack() {
   const styles = createStyles(theme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const navigation = useNavigation();
-  const translateY = useSharedValue(0);
-
-  const navigateToMain = () => {
-    translateY.value = withTiming(-1000, { duration: 500 }, () => {
-      navigation.navigate(AppRoutes.MAIN);
-      translateY.value = withTiming(0, { duration: 500 });
-    });
-  };
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: translateY.value }],
-    };
-  });
 
   useEffect(() => {
-    if (!player1?.cards && !player2?.cards) {
+    if (!player1?.cards.length && !player2?.cards.length) {
       dispatch(
         blackJackActions.setPlayer({
           name: 'Player',
@@ -70,6 +52,10 @@ export default function BlackJack() {
       );
       Reset();
     }
+
+    return () => {
+      dispatch(blackJackActions.clearState());
+    };
   }, []);
 
   useEffect(() => {
@@ -103,8 +89,8 @@ export default function BlackJack() {
   }
 
   return (
-    <AnimatedSafeAreaView style={[styles.wrapper, animatedStyle]} edges={['top']}>
-      <GameHeader onPress={navigateToMain} />
+    <SafeAreaView style={styles.wrapper} edges={['top']}>
+      <GameHeader />
       <View style={{ paddingVertical: 30, justifyContent: 'space-between', flex: 1 }}>
         <PlayingCardsList cards={player2?.cards || []} isPlayer={false} turn={turn} />
         <View>
@@ -127,6 +113,6 @@ export default function BlackJack() {
           win={player1?.bet || 0}
         />
       )}
-    </AnimatedSafeAreaView>
+    </SafeAreaView>
   );
 }

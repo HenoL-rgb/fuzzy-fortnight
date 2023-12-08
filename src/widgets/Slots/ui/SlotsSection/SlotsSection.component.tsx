@@ -66,14 +66,14 @@ const routes = [
 export default function SlotsSection() {
   const [active, setActive] = useState<SelectValue>(selects.TOP);
   const navigation = useNavigation();
-  
+
   return (
-    <View style={{ flex: 1, paddingHorizontal: 20, rowGap: 30 }}>
+    <View style={{ flex: 1, rowGap: 30 }}>
       <SlotsList
         slots={slots}
         isLoading={false}
         listHeader={
-          <View style={{rowGap: 30, paddingBottom: 30}}>
+          <View style={{ rowGap: 30, paddingBottom: 30 }}>
             <FlatList
               data={routes}
               horizontal
@@ -81,6 +81,7 @@ export default function SlotsSection() {
               snapToInterval={CARD_SIZE}
               ItemSeparatorComponent={() => <View style={{ width: SPACING }}></View>}
               style={{ flexGrow: 0 }}
+              contentContainerStyle={{ paddingHorizontal: 20 }}
               renderItem={({ item }) => {
                 return (
                   <Card

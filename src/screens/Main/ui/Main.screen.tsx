@@ -44,7 +44,7 @@ export default function MainScreen() {
   return (
     <SafeAreaView style={{ flex: 1, rowGap: 30 }} edges={['top']}>
       <MainHeader />
-
+      
       <SlotsSection />
     </SafeAreaView>
   );

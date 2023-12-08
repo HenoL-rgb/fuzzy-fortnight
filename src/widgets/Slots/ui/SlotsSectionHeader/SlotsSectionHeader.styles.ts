@@ -14,5 +14,6 @@ export const createStyles = (theme: Theme) =>
     },
     wrapper: {
       rowGap: 20,
+      paddingHorizontal: 20,
     },
   });

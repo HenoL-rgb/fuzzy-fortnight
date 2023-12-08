@@ -1,18 +1,20 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BlackJack } from '@screens/BlackJack';
 import { WheelOfFortune } from '@screens/WheelOfFortune';
-import MainScreenRouter from './MainScreenRouter';
+import MainRouter from './MainRouter.component';
+import { Profile } from '@screens/Profile';
 
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function AppRouter() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="blackJack" component={BlackJack} />
-      <Drawer.Screen name="main" component={MainScreenRouter} />
-      <Drawer.Screen name="wheelOfFortune" component={WheelOfFortune} />
-    </Drawer.Navigator>
+    <Stack.Navigator screenOptions={{
+      headerShown: false,
+    }}>
+      <Stack.Screen name="app" component={MainRouter} />
+      <Stack.Screen name="profile" component={Profile} />
+    </Stack.Navigator>
   );
 }

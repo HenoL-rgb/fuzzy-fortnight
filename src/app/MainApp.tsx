@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import MainRouter from './providers/router/ui/MainRouter.component';
+import AppRouter from './providers/router/ui/AppRouter';
 import { useFonts } from 'expo-font';
 
 export default function MainApp() {
@@ -12,5 +12,5 @@ export default function MainApp() {
 
   if(!fontsLoaded) return null;
 
-  return <MainRouter />;
+  return <AppRouter />;
 }
