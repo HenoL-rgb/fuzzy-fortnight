@@ -1,10 +1,7 @@
 import { DarkTheme } from '@app/styles/theme';
 import { NavigationContainer } from '@react-navigation/native';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import React, { PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { Linking, Platform, ActivityIndicator } from 'react-native';
+import { PropsWithChildren } from 'react';
 
 const PERSISTENCE_KEY = 'NAVIGATION_STATE_V1';
 const LOCAL_STORAGE_THEME_KEY = 'theme';

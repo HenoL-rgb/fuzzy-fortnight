@@ -35,7 +35,7 @@ export default function BlackJack() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (!player1?.cards.length && !player2?.cards.length) {
+    if (!player1?.cards?.length && !player2?.cards?.length) {
       dispatch(
         blackJackActions.setPlayer({
           name: 'Player',

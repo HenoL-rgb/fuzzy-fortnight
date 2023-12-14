@@ -2,7 +2,7 @@ import Vector from './Vector.svg';
 import WinSvg from './win.svg';
 import Chest from './chest.svg';
 import Back from './back.svg';
-import Logo from './Logo.svg'
+import Logo from './Logo.svg';
 
 export { Vector, WinSvg, Chest, Back, Logo };
 
@@ -118,3 +118,27 @@ const cards = {
 };
 
 export { cards };
+
+import Apple from './slots/apple.png';
+import Bar from './slots/bar.png';
+import Bell from './slots/bell.png';
+import Seven from './slots/casino.png';
+import Diamond from './slots/diamond.png';
+import Jackpot from './slots/jackpot.png';
+import Lemon from './slots/lemon.png';
+import Orange from './slots/orange.png';
+import Watermelon from './slots/watermelon.png';
+
+const slotSymbols = {
+  Apple,
+  Bar,
+  Bell,
+  Seven,
+  Diamond,
+  Jackpot,
+  Lemon,
+  Orange,
+  Watermelon,
+};
+
+export { slotSymbols };

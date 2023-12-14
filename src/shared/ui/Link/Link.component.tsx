@@ -21,8 +21,6 @@ export default function Link({
     <Animated.View
       entering={animated ? FadeInLeft.delay(200 * (index + 1)) : undefined}
       style={{
-        paddingHorizontal: 10,
-        paddingVertical: 5,
         borderRadius: 5,
         rowGap: 5,
       }}
@@ -32,6 +30,8 @@ export default function Link({
         style={({ pressed }) => [
           {
             opacity: pressed ? 0.9 : 1,
+            paddingHorizontal: 10,
+            paddingVertical: 15,
           },
         ]}
       >

@@ -12,7 +12,7 @@ export default function GameHeader() {
 
   return (
     <View style={[styles.wrapper]}>
-      <Pressable style={styles.button} onPress={() => navigation.openDrawer()}>
+      <Pressable style={styles.button} onPress={() => navigation.goBack()}>
         <MaterialIcons name="chevron-left" size={28} color={theme.colors.text} />
       </Pressable>
       <Pressable style={styles.button}>

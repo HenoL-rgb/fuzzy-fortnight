@@ -1,15 +1,13 @@
-import { View, Text } from 'react-native';
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { MainScreen } from '@screens/Main';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BlackJack } from '@screens/BlackJack';
-import { WheelOfFortune } from '@screens/WheelOfFortune';
-import { AppRouterParams, AppRoutes } from '@shared/config/router.config';
+import {
+  MainRouterParams,
+  MainRoutes
+} from '@shared/config/router.config';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<MainRouterParams>();
 
 export default function MainScreenRouter() {
   return (
@@ -19,7 +17,7 @@ export default function MainScreenRouter() {
       }}
     >
       <Tab.Screen
-        name={'jopa'}
+        name={MainRoutes.HOME}
         component={MainScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
@@ -31,7 +29,7 @@ export default function MainScreenRouter() {
         }}
       />
       <Tab.Screen
-        name={AppRoutes.BLACK_JACK}
+        name={MainRoutes.LEADERS_BOARD}
         component={BlackJack}
         options={{
           tabBarIcon: ({ focused, color, size }) => {
@@ -41,7 +39,7 @@ export default function MainScreenRouter() {
         }}
       />
       <Tab.Screen
-        name={'wallet'}
+        name={MainRoutes.WALLET}
         component={BlackJack}
         options={{
           tabBarIcon: ({ focused, color, size }) => {

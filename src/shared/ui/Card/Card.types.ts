@@ -5,14 +5,14 @@ export enum CardTypes {
   BIG = 'big',
 }
 
-type SmallCard = {
+export type SmallCard = {
   image: ImageSourcePropType;
   type: CardTypes.SMALL;
   onPress: () => void;
   style?: ViewStyle;
 };
 
-type LargeCard = {
+export type LargeCard = {
   onPress: () => void;
   image: any;
   title: string;

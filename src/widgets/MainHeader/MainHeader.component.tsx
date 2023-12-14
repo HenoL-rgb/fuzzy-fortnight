@@ -15,7 +15,6 @@ export default function MainHeader() {
   return (
     <View style={[styles.wrapper]}>
       <Pressable
-        onPress={() => navigation.openDrawer()}
         style={({ pressed }) => [
           {
             opacity: pressed ? 0.8 : 1,

@@ -17,8 +17,8 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         paddingHorizontal: 20,
-        paddingTop: 15,
-        height: 40,
+        paddingVertical: 15,
         alignItems: 'center',
+        backgroundColor: theme.colors.background,
     }
 });
