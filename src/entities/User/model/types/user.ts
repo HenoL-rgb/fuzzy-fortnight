@@ -1,5 +1,6 @@
 
 export type User = {
+    id: number;
     isVip?: boolean;
     walletAmount: number;
     nickname: string;

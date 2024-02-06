@@ -3,6 +3,9 @@ import { RouterProvider } from '@app/providers/router';
 import { StoreProvider } from '@app/providers/storeProvider';
 import { StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import * as NavigationBar from "expo-navigation-bar";
+
+NavigationBar.setBackgroundColorAsync("transparent");
 
 export default function App() {
 

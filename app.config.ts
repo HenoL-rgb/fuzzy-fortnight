@@ -10,19 +10,26 @@ const expoConfig: ExpoConfig = {
   experiments: {
     tsconfigPaths: true,
   },
-  plugins: [],
+  plugins: [
+    '@react-native-firebase/app',
+    '@react-native-firebase/auth',
+    '@react-native-firebase/crashlytics',
+  ],
   splash: {
     backgroundColor: '#3563e9',
   },
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
+    googleServicesFile: './GoogleService-Info.plist',
     config: {
       usesNonExemptEncryption: false,
     },
     bundleIdentifier: 'com.henol.casino',
+    useFrameworks: 'static',
   },
   android: {
+    googleServicesFile: './google-services.json',
     softwareKeyboardLayoutMode: 'pan',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -33,6 +40,11 @@ const expoConfig: ExpoConfig = {
   },
   web: {
     favicon: './assets/favicon.png',
+  },
+  extra: {
+    eas: {
+      projectId: '6d791bf7-ef8e-435d-849b-90918446a513',
+    },
   },
 };
 

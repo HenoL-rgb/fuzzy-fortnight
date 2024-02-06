@@ -1,3 +1,12 @@
+import React from 'react';
+
 export interface ReelSetProps {
-    width: number;
+  width: number;
+  onLoad?: () => void;
+  reelsArr: React.MutableRefObject<
+    {
+      scrollByOffset: (offset: number) => void;
+      symbols: string;
+    }[]
+  >;
 }

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button } from '@shared/ui/Button';
 import { PlayingCardsList } from '@entities/PlayingCard';
@@ -20,6 +20,7 @@ import { useTheme, useNavigation } from '@react-navigation/native';
 import { createStyles } from './BlackJack.styles';
 import WinModal from './WinModal/WinModal.component';
 import { GameHeader } from '@widgets/GameHeader';
+import { CARD_ANIMATION, MODAL_DELAY } from '../model/lib/constants/constants';
 
 export default function BlackJack() {
   const player1 = useAppSelector(getBlackJackPlayer1);
@@ -32,6 +33,7 @@ export default function BlackJack() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const deckRef = useRef<{ pickCard: () => void }>(null);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -60,23 +62,29 @@ export default function BlackJack() {
 
   useEffect(() => {
     if (winner && winner !== null) return;
-
+    let i;
     if (!turn) {
-      if (botPick(player2?.cards || [])) {
-        setTimeout(() => dispatch(blackJackActions.pickCard()), 500);
-      } else {
-        dispatch(blackJackActions.getWinner());
-      }
+      i = setInterval(() => {
+        if (botPick(player2?.cards || [])) {
+          Pick();
+        } else {
+          dispatch(blackJackActions.getWinner());
+          clearInterval(i);
+        }
+      }, CARD_ANIMATION);
     }
+
+    return () => clearInterval(i);
   }, [turn, player2?.cards?.length]);
 
   useEffect(() => {
     if (winner || winner === null) {
-      setTimeout(() => setModalVisible(true), 500);
+      setTimeout(() => setModalVisible(true), MODAL_DELAY);
     }
   }, [winner]);
 
   function Pick() {
+    deckRef.current?.pickCard();
     dispatch(blackJackActions.pickCard());
   }
 
@@ -94,7 +102,7 @@ export default function BlackJack() {
       <View style={{ paddingVertical: 30, justifyContent: 'space-between', flex: 1 }}>
         <PlayingCardsList cards={player2?.cards || []} isPlayer={false} turn={turn} />
         <View>
-          <Deck turn={turn} totalCards={availableCards.length} />
+          <Deck ref={deckRef} turn={turn} totalCards={availableCards.length} />
         </View>
         <PlayingCardsList cards={player1?.cards || []} isPlayer={true} turn={turn} />
       </View>

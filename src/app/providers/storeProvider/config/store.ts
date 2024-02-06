@@ -12,6 +12,7 @@ import {
 } from 'redux-persist';
 
 import { blackJackReducer } from '@screens/BlackJack';
+import { userReducer } from '@entities/User';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   blackJackReducer,
+  userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

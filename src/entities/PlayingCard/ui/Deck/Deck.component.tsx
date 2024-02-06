@@ -1,5 +1,5 @@
 import { View, Text, Dimensions } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { DeckProps } from './Deck.types';
 import Animated, {
   SlideInDown,
@@ -15,14 +15,22 @@ import { createStyles } from './Deck.styles';
 
 const height = Dimensions.get('window').height;
 
-export default function Deck({ turn, totalCards }: DeckProps) {
+const Deck = forwardRef<{ pickCard: () => void }, DeckProps>(({ turn, totalCards }, ref) => {
   const theme = useTheme();
   const styles = createStyles(theme);
   const translate = useSharedValue(0);
   const opacity = useSharedValue(1);
 
-  const rStyle = useAnimatedStyle(() => {
+  const pickCard = () => {
+    translate.value = totalCards < 48 ? height * (turn ? 1 : -1) : 0;
+    opacity.value = 0;
+  };
 
+  useImperativeHandle(ref, () => ({
+    pickCard,
+  }));
+
+  const rStyle = useAnimatedStyle(() => {
     return {
       transform: [
         {
@@ -42,9 +50,8 @@ export default function Deck({ turn, totalCards }: DeckProps) {
   }, [totalCards]);
 
   useEffect(() => {
-    translate.value = totalCards < 48 ? height * (turn ? 1 : -1) : 0;
-    opacity.value = 0;
-  }, [turn, totalCards]);
+    pickCard();
+  }, [turn, totalCards])
 
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -56,4 +63,6 @@ export default function Deck({ turn, totalCards }: DeckProps) {
       </Animated.View>
     </View>
   );
-}
+});
+
+export default Deck;

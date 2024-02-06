@@ -1,8 +1,9 @@
-import { Theme } from "@app/styles/theme";
-import { StyleSheet } from "react-native";
+import { Theme } from '@app/styles/theme';
+import { StyleSheet } from 'react-native';
 
-export const createStyles = () => StyleSheet.create({
+export const createStyles = (theme: Theme) =>
+  StyleSheet.create({
     wrapper: {
-        backgroundColor: 'pink',
-    }
-})
+      backgroundColor: theme.colors.secondary,
+    },
+  });

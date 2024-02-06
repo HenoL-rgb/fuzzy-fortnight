@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "582671471332",
+    "project_id": "casino-dd65b",
+    "storage_bucket": "casino-dd65b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582671471332:android:c3eef7ed170741886712f1",
+        "android_client_info": {
+          "package_name": "com.henol.casino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582671471332-9ui8lorhq2amu023ljhuma6g54jvengq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.henol.casino",
+            "certificate_hash": "e9fa85e02d11a825e9ffb5f580141eaf9b3344b6"
+          }
+        },
+        {
+          "client_id": "582671471332-6i1c8s5cksp6ll8nc6ctnqev544m1fbb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADYIsPsFtTK7BL1Vo_NPIhEEGATKcLNyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582671471332-6i1c8s5cksp6ll8nc6ctnqev544m1fbb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "582671471332-qhuddon5ks4a31qknfnoiv9c33km92ms.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.henol.casino"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

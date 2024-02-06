@@ -54,7 +54,7 @@ export default function PlayingCardsList({ cards, isPlayer, turn }: PlayingCards
   const rStyle = useAnimatedStyle(() => {
     return {
       width: withTiming(180 + (120 - testRight.value) * (cards.length - 1), {
-        duration: 400,
+        duration: 500,
       }),
     };
   }, [cards.length, testRight.value]);

@@ -6,11 +6,14 @@ import { createStyles } from './MainHeader.styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Logo } from '@shared/assets/icons';
 import Pfp from '@shared/assets/icons/Pfp.jpg';
+import { useAppSelector } from '@app/providers/storeProvider/lib/hooks/useAppSelector.hook';
+import { Avatar } from '@shared/ui/Avatar';
 
 export default function MainHeader() {
   const theme = useTheme();
   const styles = createStyles(theme);
   const navigation = useNavigation();
+  const avatar = useAppSelector((state) => state.userReducer.avatar);
 
   return (
     <View style={[styles.wrapper]}>
@@ -24,7 +27,7 @@ export default function MainHeader() {
         <Logo />
       </Pressable>
       <Pressable style={styles.button} onPress={() => navigation.navigate('profile')}>
-        <Image source={Pfp} />
+        <Avatar url={avatar} />
       </Pressable>
     </View>
   );

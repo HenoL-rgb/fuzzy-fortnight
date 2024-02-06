@@ -7,7 +7,7 @@ export const createStyles = (theme: Theme) => StyleSheet.create({
         height: 44,
         width: 44,
         backgroundColor: theme.colors.secondary,
-        borderRadius: 10,
+        borderRadius: 99,
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',

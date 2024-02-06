@@ -13,7 +13,7 @@ export default function RouterProvider({ children }: PropsWithChildren) {
 
   return (
     <NavigationContainer theme={DarkTheme}>
-      <StatusBar style={'light'} animated={true} />
+      <StatusBar style="light" animated={true} />
       {children}
     </NavigationContainer>
   );

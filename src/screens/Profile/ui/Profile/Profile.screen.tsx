@@ -5,27 +5,43 @@ import { Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-ic
 import { Action } from '@shared/ui/Action';
 import { Link } from '@shared/ui/Link';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import {
-  AppRouterParams,
-  AppRoutes
-} from '@shared/config/router.config';
+import { AppRouterParams, AppRoutes } from '@shared/config/router.config';
+import { Avatar } from '@shared/ui/Avatar';
+import auth from '@react-native-firebase/auth';
 
 type NavigationProp = NativeStackScreenProps<AppRouterParams, AppRoutes.PROFILE>;
 
 export default function Profile({ navigation }: NavigationProp) {
-
   return (
-    <SafeAreaView style={{ rowGap: 20 }}>
-      <Pressable style={{ paddingLeft: 20 }}>
-        <MaterialCommunityIcons
-          name="chevron-left"
-          color={'#fff'}
-          size={32}
-          onPress={() => navigation.goBack()}
+    <SafeAreaView style={{ rowGap: 20, paddingTop: 20 }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}
+      >
+        <Pressable>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            color={'#fff'}
+            size={32}
+            onPress={() => navigation.goBack()}
+          />
+        </Pressable>
+        <Pressable>
+          <MaterialIcons name="logout" color={'#fff'} size={24} onPress={() => auth().signOut()} />
+        </Pressable>
+      </View>
+
+      <View
+        style={{ flexDirection: 'row', alignItems: 'center', columnGap: 20, paddingHorizontal: 20 }}
+      >
+        <Avatar
+          url="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/1299120/65a945d1f9033f3bd76bebd34e438b2a88904db1.gif"
+          size={80}
         />
-      </Pressable>
-      <View style={{ flexDirection: 'row', alignItems: 'center', columnGap: 20, padding: 20 }}>
-        <Image source={Pfp} style={{ width: 80, height: 80, borderRadius: 99 }} />
         <View style={{ rowGap: 5 }}>
           <View
             style={{
@@ -85,7 +101,7 @@ export default function Profile({ navigation }: NavigationProp) {
           index={1}
           icon={<MaterialIcons name="groups" size={24} color="#fff" />}
           title="Friends"
-          navigateTo="main"
+          navigateTo="friends"
         />
         <Link
           index={2}
@@ -99,6 +115,9 @@ export default function Profile({ navigation }: NavigationProp) {
           title="Settings"
           navigateTo="main"
         />
+        <Pressable index={3} onPress={() => {}}>
+          <Text>Logout</Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
